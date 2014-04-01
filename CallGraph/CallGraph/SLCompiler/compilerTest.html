@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>AlgoView.js</title>
+
+		<link rel="stylesheet" type="text/css" href="../code/lib/bootstrap/css/bootstrap.css">
+		<link  type="text/css" href="../code/css/body.css" rel="stylesheet" /> 
+		<link  type="text/css" href="../code/css/table.css" rel="stylesheet" />
+	    <link  type="text/css" href="../code/css/svgView.css" rel="stylesheet" />
+	    <link  type="text/css" href="../code/css/dtree.css" rel="stylesheet" /> 
+	    <link  type="text/css" href="../code/css/treeView.css" rel="stylesheet" /> 
+	    <link  type="text/css" href="../code/css/menu.css" rel="stylesheet" /> 
+	    <link  type="text/css" href="../code/css/navigation.css" rel="stylesheet" /> 
+
+	</head>
+
+	<body>	
+
+		<h1>Call Graph</h1>
+
+		<div id="navigation">
+			<button id="programTree_button" class="btn btn-info">ProgramTree</button>
+			<button id="callGraph_button" class="btn btn-info">CallGraph</button>
+			<button id="choice_program" class="btn btn-danger">Choisir un programme</button>
+		</div>
+
+		<div id="choice_program_menu">
+
+		    <div class="plan">
+		        <div class="header"></div>
+		        <div class="function_name">LinkedList</div> 
+		        <ul>
+		            <li><b>Nombre de noeuds callGraph : Faible</b></li>
+		            <li><b>Nombre de noeuds programTree : Moyen</b></li>
+		        </ul>
+		        <button class="btn-danger btn-large" id="compile_link">Compiler</button>         
+		    </div >
+
+		    <div class="plan">
+		        <div class="header"></div>
+		        <div class="function_name">Factoriel</div> 
+		        <ul>
+		            <li><b>Nombre de noeuds callGraph : Faible</b></li>
+		            <li><b>Nombre de noeuds programTree : Faible</b></li>
+		        </ul>
+		        <button class="btn-danger btn-large" id="compile_fact">Compiler</button>            
+		    </div>
+		  
+		     <div class="plan">
+		        <div class="header"></div>
+		        <div class="function_name">IF</div>     
+		        <ul>
+		            <li><b>Nombre de noeuds callGraph : Faible</b></li>
+		            <li><b>Nombre de noeuds programTree : Faible</b></li>
+		        </ul>
+		        <button class="btn-danger btn-large" id="compile_if">Compiler</button>         
+		    </div >
+
+		    <div class="plan">
+		        <div class="header"></div>
+		        <div class="function_name">Graph</div>      
+		        <ul>
+		            <li><b>Nombre de noeuds callGraph : Moyen</b></li>
+		            <li><b>Nombre de noeuds programTree : Elevé</b></li>
+		        </ul>
+		        <button class="btn-danger btn-large" id="compile_graph">Compiler</button>         
+		    </div >
+		</div>
+
+
+
+    	<div id="canvas"></div> 
+
+		<div id="rightPage">
+
+            <table id="TableView">
+                <thead>
+                    <th>Node informations</th>
+                </thead>
+
+                <tbody>
+
+                    <tr class="even">
+                        <td class="first">Node Name :</td>
+                        <td class="nodeName"></td>
+                    </tr>
+
+
+                    <tr class="odd">
+                        <td class="first">Node Id :</td>
+                        <td class="nodeId"></td>
+                    </tr>
+
+                    <tr class="all">
+                        <td colspan="2">Neighbors :</td>
+                    </tr>
+
+                </tbody>
+    	    </table> 
+
+            <div id="TreeView">
+
+            </div>
+        </div>
+
+        <div id="legend" class="alert alert-info">
+			<h3>Légende</h3>
+        	<p>couleur noeud sélectionné : rouge</p>
+				<p>couleur des voisins du noeud sélectionné : vert</p>
+				<h4>Commandes : </h4>
+				<p>Zoom + : CTRL + CLICK </p>
+				<p>Zoom - : SHIFT + CLICK</p>
+        </div>
+
+        <div class="alert alert-info" id="infos_program">
+
+        	<p id="programCode">Program Code : </p>
+		
+		
+			<p id="compilerOutput">Compiler Output : </p>
+        </div>
+
+        <div class="zoom-text" id="zoom-text"></div>
+
+
+		
+		<script src='./lib/jquery/jquery-1.7.2.min.js' type='text/javascript' charset='utf-8'></script>		
+		<script src='./lib/antlr-javascript-runtime-3.1/antlr3-all-patched.js' type='text/javascript' charset='utf-8'></script>		
+		<script type="text/javascript" src="../code/lib/raphael.js"></script>  <!-- Rajouté -->
+		
+		<script src='./src/utils/MathUtils.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/utils/JSUtils.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/utils/AlgoUtils.js' type='text/javascript' charset='utf-8'></script>	
+		
+		<!-- data types -->	
+		<script src='./src/model/AbstractModel.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/DataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/BooleanDataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/IntegerDataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FloatDataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/CharacterDataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/PointerDataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ArrayDataType.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StructureDataType.js' type='text/javascript' charset='utf-8'></script>
+		
+		<!-- memory values -->
+		<script src='./src/execution/MemoryState.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/MemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/BooleanMemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/IntegerMemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/FloatMemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/CharacterMemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/PointerMemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		
+		<script src='./src/exceptions/Exception.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/CompilationError.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/InvalidAddressException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/PartOfPrimitiveTypeException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/AlreadyAllocatedSegmentException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/IllegalArgumentException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/DoubleFreeException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/EmptyStackException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/StackOverflowException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/BadVariableNameException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/CannotApplyTestOperatorException.js' type='text/javascript' charset='utf-8'></script>
+		
+		<!-- program nodes -->
+		<script src='./src/program/Program.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FileLocation.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/Node.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ProgramNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/PrintNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/IfNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/WhileNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ForNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/DoWhileNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StringNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ExpressionNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ConditionNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ArithmeticExpressionNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/TestNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AndNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/OrNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/NotNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/UnaryMinusNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AssignableNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/NumberNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StructureElementNameNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StructureElementNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ArrayElementNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/PointerDereferenceNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/NullPointerNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AllocateNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FreeNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AssignStringNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AssignNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AssignExpressionNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/IdentifierListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/InstructionListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ExpressionListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FunctionNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FunctionListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FunctionCallNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FunctionNameNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FunctionParametersListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/FunctionParameterDeclarationNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ReturnNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StructureDeclarationListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/RandomNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ErrorNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/AddressNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/ContentNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/DereferenceNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/BeginNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/EndNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/VariableTypeNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/VariableNameNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/VariableDeclarationNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StructureDeclarationNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/StructureNameNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/VariablesDeclarationListNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/VariablesDeclarationNode.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/execution/ProgramCompiler.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/ErrorInstructionException.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/parser/SimpleLanguageLexer.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/program/parser/SimpleLanguageParser.js' type='text/javascript' charset='utf-8'></script>
+
+		 <!-- interfaces --> 
+	    <script type="text/javascript" src="../code/js/TypeGraph/graph/AbstractSimpleGraph.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/node/AbstractNode.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/node/AbstractNodeIterator.js"></script>
+	    <script type="text/javascript" src="../code/js/Views/AbstractView.js"></script>
+	    <script type="text/javascript" src="../code/js/Controllers/AbstractController.js"></script>
+	    <script type="text/javascript" src="../code/js/Model/AbstractModel.js"></script>
+
+	    <!-- vos scripts -->  
+    	<script type="text/javascript" src="../code/js/utils/Tools.js"></script>
+
+
+    	<!-- Events -->
+        <script type="text/javascript" src="../code/js/Event/Event.js"></script>
+        <script type="text/javascript" src="../code/js/Event/NodeEvent/NodeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/NodeEvent/DeleteNodeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/NodeEvent/ModificationNodeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/NodeEvent/NewNodeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/NodeEvent/ResetNodeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/NodeEvent/SelectNodeEvent.js"></script>
+
+
+        <script type="text/javascript" src="../code/js/Event/GraphEvent/GraphEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/GraphEvent/GraphChangeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/GraphEvent/GraphCreationEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/GraphEvent/GraphDeleteEvent.js"></script>
+
+
+        <script type="text/javascript" src="../code/js/Event/EdgeEvent/EdgeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/EdgeEvent/DeleteEdgeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/EdgeEvent/ModifyEdgeEvent.js"></script>
+        <script type="text/javascript" src="../code/js/Event/EdgeEvent/NewEdgeEvent.js"></script>
+		
+		<script type="text/javascript" src="../code/js/TypeGraph/node/NodeValue.js"></script> 
+        
+
+        <!-- Graph --> 
+         <script type="text/javascript" src="../code/js/TypeGraph/graph/SimpleGraph.js"></script>
+
+        <!-- Node -->
+          
+         <script type="text/javascript" src="../code/js/TypeGraph/node/GraphNode.js"></script>
+         <script type="text/javascript" src="../code/js/TypeGraph/node/NodeIterator.js"></script> 
+
+        <!-- Edge -->    
+         <script type="text/javascript" src="../code/js/TypeGraph/edge/Edge.js"></script>
+
+         
+        <!-- Views -->
+       <script type="text/javascript" src="../code/js/Views/SvgView.js"></script> 
+       <script type="text/javascript" src="../code/js/Views/TableView.js"></script>
+       <script type="text/javascript" src="../code/js/Views/dtree.js"></script>
+
+       <!-- Contrôleur -->
+       <script type="text/javascript" src="../code/js/Controllers/Controller.js"></script>
+
+
+	    <!--Exceptions -->
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/GraphException.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/AlreadyExistingNodeException.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/InvalidIdException.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/UnexistingEdgeException.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/UnexistingNodeException.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/InvalidReferenceException.js"></script>
+	    <script type="text/javascript" src="../code/js/TypeGraph/exception/AlreadyExistingEdgeException.js"></script>
+
+	    <script type="text/javascript" src="../code/js/utils/navigation.js"></script>
+	    <script type="text/javascript" src="compilerTest.js"></script>
+
+
+	</body>
+</html>

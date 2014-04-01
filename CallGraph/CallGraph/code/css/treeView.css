@@ -1,0 +1,15 @@
+/*********** FICHIER CSS DE TREEVIEW *****/
+
+#rightPage{
+	display: inline-block;
+	position: absolute;
+	visibility: hidden;
+}
+
+#TreeView{
+	display: block;
+	margin-top:50px;
+	margin-bottom: 50px;
+	margin-left: 3%;
+	display: block;
+}

@@ -1,0 +1,25 @@
+body{
+  padding-left: 10%;
+  padding-right: 10%;
+  background: #2c3e50;
+}
+
+h1{
+  text-decoration: underline;
+  text-align: center;
+  color:#CCCCCC;
+}
+
+#legend{
+	margin-top: 20px;
+	border-radius: 10px;
+	width: 750px;
+  visibility: hidden;
+}
+
+#infos_program{
+  width: 750px;
+	margin-top: 20px;
+  border-radius: 10px;
+  visibility: hidden;
+}

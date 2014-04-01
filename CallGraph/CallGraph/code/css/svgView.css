@@ -1,0 +1,53 @@
+/**** FICHIER CSS DE SVGVIEW ****/
+
+
+
+#canvas{
+	box-shadow: 3px 3px 20px #010101; 
+	display: inline-block;
+	margin-right: 5%;
+	width:800px;
+	border-radius:10px;
+	color: #3a87ad;
+  	background-color: #d9edf7;
+  	border-color: #bce8f1;
+	visibility: hidden;
+	cursor:move;
+}
+.zoom-test{
+	position:relative;
+}
+
+rect{
+	fill:white;
+	transition: fill 0.8s;
+	-moz-transition: fill 0.8s; /* Firefox 4 */
+	-webkit-transition: fill 0.8s; /* Safari and Chrome */
+	-o-transition: fill 0.8s; /* Opera */
+	z-index: 0;
+}
+
+text{
+	z-index: -1;
+	cursor: pointer;
+}
+
+.selected{
+	fill:#F63434;
+}
+
+.neighborhood{
+	fill:green;
+}
+
+path{
+	stroke:black;
+}
+
+marker>use{
+	fill:black;
+}
+
+text{
+	fill:#351E1E;
+}

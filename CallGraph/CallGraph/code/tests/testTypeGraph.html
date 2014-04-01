@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph Abstract Type QUnit Test Campaign</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link  type="text/css" href="./qunit-1.11.0.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1 id="qunit-header">Graph Abstract Type QUnit Test Campaign</h1>
+	<h2 id="qunit-banner"></h2>
+ 	<div id="qunit-testrunner-toolbar"></div>
+ 	<!--h2 id="qunit-userAgent"></h2-->
+ 	<ol id="qunit-tests"></ol>
+ 	<div id="qunit-fixture">test markup, will be hidden</div>
+
+ 	<div style='visibility:hidden;'>
+	</div>
+
+    <script type="text/javascript" src="./qunit-1.11.0.js"></script>
+    
+    <!-- interfaces -->
+    <script type="text/javascript" src="../js/TypeGraph/graph/AbstractSimpleGraph.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/node/AbstractNode.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/node/AbstractNodeIterator.js"></script>
+    
+    <!-- vos scripts -->  
+    <script type="text/javascript" src="../resources/Tools.js"></script>
+        <!-- Graph --> 
+         <script type="text/javascript" src="../js/TypeGraph/graph/SimpleGraph.js"></script>
+        <!-- Node -->  
+         <script type="text/javascript" src="../js/TypeGraph/node/Node.js"></script>
+         <script type="text/javascript" src="../js/TypeGraph/node/NodeIterator.js"></script>
+        <!-- Edge -->    
+         <script type="text/javascript" src="../js/TypeGraph/edge/Edge.js"></script>
+
+    <!--Exceptions -->
+    <script type="text/javascript" src="../js/TypeGraph/exception/GraphException.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/exception/AlreadyExistingNodeException.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/exception/InvalidIdException.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/exception/UnexistingEdgeException.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/exception/UnexistingNodeException.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/exception/InvalidReferenceException.js"></script>
+    <script type="text/javascript" src="../js/TypeGraph/exception/AlreadyExistingEdgeException.js"></script>
+      
+    <!-- campagne de tests -->
+    <script type="text/javascript" src="./testTypeGraph.js"></script>
+    
+  </body>
+</html>

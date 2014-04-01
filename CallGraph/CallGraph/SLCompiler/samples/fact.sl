@@ -1,0 +1,12 @@
+FUNCTION factorial(i:INTEGER):INTEGER
+BEGIN
+	IF(i<=1)THEN
+		RETURN 1
+	END_IF
+	RETURN i*factorial(i-1)
+END
+
+PROCEDURE main()
+BEGIN
+	factorial(3)
+END
